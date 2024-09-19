@@ -1,0 +1,23 @@
+<mat-card class="login-card">
+  <mat-card-title>
+    Login
+  </mat-card-title>
+
+  <div class="input-fields">
+    <mat-form-field>
+      <mat-label>Username/Email</mat-label>
+      <input matInput [formGroup]="loginFormGroup" [formControl]="loginFormGroup.controls.name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput [formGroup]="loginFormGroup" [formControl]="loginFormGroup.controls.password">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-flat-button color="primary" class="save-button" [disabled]="!loginFormGroup.valid" (click)="save()">
+      Save
+    </button>
+  </div>
+</mat-card>
