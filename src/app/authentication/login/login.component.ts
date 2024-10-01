@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from "@angular/material/button";
 import {LoginRequestModel} from "../models/login-request.model";
+import {Store, StoreModule} from "@ngrx/store";
 
 @Component({
   selector: 'app-authentication',
