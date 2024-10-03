@@ -1,16 +1,1 @@
-.login-card {
-  background: white;
-  text-align: center;
-  collapse: black;
-  max-width: 1400px;
-  padding: 1%;
-  margin-top: 3%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.input-fields {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-}
+@import "../common/authentication";
