@@ -41,10 +41,10 @@ export class RegisterComponent {
     confirmPassword: FormControl,
   }> = new FormGroup(
     {
-      username: new FormControl(''),// [Validators.required, Validators.maxLength(255)]
-      email:new FormControl(''), // [Validators.email, Validators.required]
-      password: new FormControl(''), // [Validators.required, Validators.maxLength(255), Validators.minLength(8)]
-      confirmPassword: new FormControl('') // [Validators.required]
+      username: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      email:new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(255), Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required])
     },
     {validators:PasswordValidator} as  AbstractControlOptions);
 
