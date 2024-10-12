@@ -16,6 +16,8 @@ import {RegisterRequestModel} from "../models/register-request.model";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/root.state";
 import {registerRequestAction} from "../../store/authentication-store/authentication.actions";
+import {debounceTime, distinctUntilChanged, switchMap} from "rxjs";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-register',
@@ -48,7 +50,30 @@ export class RegisterComponent {
     },
     {validators:PasswordValidator} as  AbstractControlOptions);
 
-  constructor(private store: Store<AppState>) {}
+  usernameAvailable: boolean | null = null;
+  emailAvailable: boolean | null = null;
+
+  constructor(private store: Store<AppState>, private authenticationService: AuthenticationService) {}
+
+  ngOnInit(): void {
+    this.registerFormGroup.controls.username.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap(value => this.authenticationService.checkFieldAvailability('username', value))
+    ).subscribe(result => {
+      this.usernameAvailable = result;
+      this.registerFormGroup.controls.username.setErrors(result ? null : { usernameTaken: true });
+    });
+
+    this.registerFormGroup.controls.email.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap(value => this.authenticationService.checkFieldAvailability('email', value))
+    ).subscribe(result => {
+      this.emailAvailable = result;
+      this.registerFormGroup.controls.email.setErrors(result ? null : { emailTaken: true });
+    });
+  }
 
   register() {
     const registerRequest: RegisterRequestModel = {
@@ -58,8 +83,6 @@ export class RegisterComponent {
       confirmPassword: this.registerFormGroup.controls.confirmPassword.value,
     };
 
-    console.log("register button log:", registerRequest);
     this.store.dispatch(registerRequestAction({ registerRequest }));
   }
-
 }

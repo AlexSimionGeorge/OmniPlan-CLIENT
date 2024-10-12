@@ -13,7 +13,6 @@ export const registerEffect = createEffect(
     return actions$.pipe(
       ofType(AuthenticationActions.registerRequestAction),
       exhaustMap((action) => {
-        console.log("Register request sent:", action.registerRequest); // Log the request
         return authenticationService.register(action.registerRequest).pipe(
           map((response: RegisterResponseModel) => {
             console.log("Registration successful, response received:", response); // Log the response
