@@ -4,6 +4,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {RegisterRequestModel} from "../models/register-request.model";
 import {RegisterResponseModel} from "../models/register-response.model";
 import {Injectable} from "@angular/core";
+import {LoginRequestModel} from "../models/login-request.model";
+import {LoginResponseModel} from "../models/login-response.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,11 @@ export class AuthenticationService {
     );
   }
 
-  register(registerModel: RegisterRequestModel): Observable<RegisterResponseModel> {
-    return this.http.post<RegisterResponseModel>(this.apiUrl + "/register", registerModel);
+  register(registerRequest: RegisterRequestModel): Observable<RegisterResponseModel> {
+    return this.http.post<RegisterResponseModel>(this.apiUrl + "/register", registerRequest);
+  }
+
+  login(loginRequest: LoginRequestModel) : Observable<LoginResponseModel> {
+    return this.http.post<LoginResponseModel>(this.apiUrl + "/login" , loginRequest);
   }
 }
